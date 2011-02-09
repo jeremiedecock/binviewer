@@ -1,0 +1,13 @@
+Source: binviewer
+Section: misc
+Priority: optional
+Maintainer: Jeremie Decock <gremy@tuxfamily.org>
+Build-Depends: debhelper (>= 7)
+Standards-Version: 3.7.3
+Homepage: http://www.jdhp.org
+
+Package: binviewer
+Architecture: all
+Depends: python (>= 2.5), ${shlibs:Depends}, ${misc:Depends}
+Description: Create a graphical representation of a binary file.
+ Create a graphical representation of a binary file.
