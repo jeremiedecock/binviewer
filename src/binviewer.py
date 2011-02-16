@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2009 Jérémie Decock (http://www.jdhp.org)
+# Copyright (c) 2009,2011 Jérémie Decock (http://www.jdhp.org)
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -21,32 +21,28 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-
-# TODO :
-# - save img
-# - filters : black & white, gray, contrast, ...
-# - read input streams instead files (to be used with a pipe from dd or cat)
-# - ARROW_UP and ARROW_DOWN keys
-# - Verify files with less than 512*3 bytes
-# - Fix bug with empty (0 byte) files
-
-
 import os, sys
 import getopt
 import pygtk
 pygtk.require('2.0')
 import gtk
 
-program_name = 'binviewer'
+PROGRAM_NAME = 'binviewer'
+PROGRAM_VERSION = 1.0
 
 def usage():
-    print '''Usage : ./binviewer -f filename
-    
-    Create a graphical representation of a binary file.
+    print '''Create a graphical representation of a binary file.
 
-    -f, --file
-        the binary file to display
-    '''
+Usage: binviewer -f FILE
+       binviewer [OPTION]
+
+Options:
+    -f, --file=FILE    the binary file to display
+    -h, --help         display this help and exit
+    -v, --version      output version information and exit
+
+Report bugs to <gremy@tuxfamily.org>.
+'''
 
 def destroy(widget):
     gtk.main_quit()
@@ -56,18 +52,25 @@ def main():
     filename = ''
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'f:h', ["file=", "help"])
+        opts, args = getopt.getopt(sys.argv[1:], 'f:hv', ["file=", "help", "version"])
     except getopt.GetoptError, err:
         print str(err) # will print something like "option -x not recognized"
         usage()
         sys.exit(1)
 
     for o, a in opts:
-        if o in ("-h", "--help"):
+        if o in ("-f", "--file"):
+            filename = a
+        elif o in ("-h", "--help"):
             usage()
             sys.exit(0)
-        elif o in ("-f", "--file"):
-            filename = a
+        elif o in ("-v", "--version"):
+            print PROGRAM_NAME, PROGRAM_VERSION
+            print
+            print 'Copyright (c) 2009,2011 Jeremie DECOCK (http://www.jdhp.org)'
+            print 'This is free software; see the source for copying conditions.',
+            print 'There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.'
+            sys.exit(0)
         else:
             assert False, "unhandled option"
 
@@ -77,7 +80,7 @@ def main():
 
     # Create window ###################
     window = gtk.Window(gtk.WINDOW_TOPLEVEL)
-    window.set_title(program_name + ' (' + filename + ')')
+    window.set_title(PROGRAM_NAME + ' (' + filename + ')')
     window.set_default_size(640, 480)
     window.connect('destroy', destroy)
     window.maximize()
@@ -105,7 +108,13 @@ def main():
     print 'bits per pixel : ', bits_per_pixel
     print 'bytes to fill  : ', bytes_to_fill
     
-    pixbuf = gtk.gdk.pixbuf_new_from_data(data, gtk.gdk.COLORSPACE_RGB, False, 8, width, height, 3 * width)
+    pixbuf = gtk.gdk.pixbuf_new_from_data(data,
+                                          gtk.gdk.COLORSPACE_RGB,
+                                          False,
+                                          8,
+                                          width,
+                                          height,
+                                          3 * width)
 
     # Image ###########################
     image = gtk.Image()

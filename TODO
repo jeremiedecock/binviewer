@@ -1,0 +1,10 @@
+TODO
+
+- Don't load the complete file in memory in order to read big files (ISO, hard
+  disk, ...)
+- Save images
+- Filters : black & white, gray, contrast, ...
+- Read input streams instead files (to be used with a pipe from dd or cat)
+- ARROW_UP and ARROW_DOWN keys
+- Verify files with less than 512*3 bytes
+- Fix bug with empty (0 byte) files

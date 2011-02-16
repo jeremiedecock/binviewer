@@ -8,6 +8,6 @@ Homepage: http://www.jdhp.org
 
 Package: binviewer
 Architecture: all
-Depends: python (>= 2.5), ${shlibs:Depends}, ${misc:Depends}
+Depends: python (>= 2.5)
 Description: Create a graphical representation of a binary file.
  Create a graphical representation of a binary file.
