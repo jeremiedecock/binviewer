@@ -27,8 +27,8 @@ import pygtk
 pygtk.require('2.0')
 import gtk
 
-PROGRAM_NAME = 'binviewer'
-PROGRAM_VERSION = 1.0
+PROGRAM_NAME = "binviewer"
+PROGRAM_VERSION = "0.2"
 
 def usage():
     print '''Create a graphical representation of a binary file.
