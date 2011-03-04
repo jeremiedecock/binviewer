@@ -31,6 +31,8 @@ PROGRAM_NAME = "binviewer"
 PROGRAM_VERSION = "0.2"
 
 def usage():
+    """Print help message"""
+
     print '''Create a graphical representation of a binary file.
 
 Usage: binviewer -f FILE
@@ -41,13 +43,15 @@ Options:
     -h, --help         display this help and exit
     -v, --version      output version information and exit
 
-Report bugs to <gremy@tuxfamily.org>.
+Report bugs to <jd.jdhp@gmail.com>.
 '''
 
 def destroy(widget):
     gtk.main_quit()
 
 def main():
+    """Main function"""
+
     # Parse options ###################
     filename = ''
 
